@@ -4,6 +4,10 @@ Data Scientists and those who work in machine learning are often lacking when it
 
 # Coding Best Practices
 
+# How To Use Vim
+
+This video by Ben Awad is great. A good way to get better at Vim is to look at how other people use it: https://www.youtube.com/watch?v=IiwGbcd8S7I
+
 # Python Best Practices
 
 # Design Best Practices
