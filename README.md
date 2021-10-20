@@ -12,6 +12,12 @@ This video by Ben Awad is great. A good way to get better at Vim is to look at h
 
 # Design Best Practices
 
+# Code Review
+
+## Submitting a Pull Request for Code Review
+
+## Reviewing a Pull Request
+
 # Anki Deck
 
 One of the best ways to really learn something is through spaced repetition, so I've created an Anki deck of the best practices. I review parts of the deck about every 2 weeks while I walk on the treadmill at the gym (incline at 5 degrees for improved retention!). I will post the deck here sometime in the coming weeks.
