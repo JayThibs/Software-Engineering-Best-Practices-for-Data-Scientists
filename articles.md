@@ -1,0 +1,158 @@
+- Introduction
+    - In what ways does being a great software engineer help in being a great data scientist or ML engineer?
+    - This series of articles is written from the perspective of starting a project and getting it up to version 2.0. So, it will talk about project structure, how to write code in Jupyter Notebooks, how to write code in scripts, how to refactor code, how to speed up code and save memory, how to deploy models, and how to improve your code when it's in production. Everything will be written from the lens of writing high-quality code and deploying models effectively.
+- Project Structure
+    - Cookiecutter Data Science
+        - https://github.com/drivendata/cookiecutter-data-science
+    - Orbyter-cookiecutter
+        - Github repo: https://github.com/manifoldai/orbyter-cookiecutter
+        - Old article about it: https://www.kdnuggets.com/2018/05/torus-docker-first-data-science.html
+- Code Structure
+- Writing High-Quality Data Science Code
+    - General Principles to Follow
+        - Don't Repeat Yourself (DRY)
+            - Modular: logically broken up into functions and modules. Create module_name.py files to place your functions.
+            - Convert code into functions to improve readability.
+            - Functions should do one thing.
+        - Clean: readable, simple, concise. Crucial for collaboration and maintability.
+        - Refactoring: reconstruct your code (clean and modularize) once you've written some working code.
+            - It's hard to structure perfectly when trying to get it working, so set some time aside to do it after.
+            - The more you refactor, the easier it will be to structure and write good code the first time.
+            - Understand how you might need to refactor your code in order to improve one of the following:
+                - Reducing run time
+                - Reducing space in memory
+    - Function Basics
+        - Docstrings
+            - Ideally, all of your functions should include docstrings.
+        - Do One Thing
+        - Pass by Assignment
+        - Arbitrary variable names in our functions can make the code more readable. For example, using __arr__ to describe an array or __idx__ to describe an index number.
+        - Try to use fewer than three arguments per function. There are times where more is better, but consider using less. Our goal is to modularize to simplify our code and make it more efficient to work with.
+    - Writing OOP Code
+    - Built-in Python
+    - Pythonic Code
+    - Looping in Python
+        - For Loops
+            - Examples
+        - While Loops
+            - Examples
+        - Improving Loop Efficiency
+            - Examples
+    - Effective Data Manipulation
+        - Numpy and Other Packages
+        - Pandas
+    - What's the Deal with Context Managers and When to Use Them?
+    - What's the Deal with Decorators and When to Use Them?
+    - Benchmarking Code
+        - Line Profiler
+        - Memory Profiler
+    - Documentation
+        - In general, great code should be self-explanatory without needing too many comments. In-line comments are typically unneeded and can be a sign that you need to refactor your code. It will can also be distracting for others who are reading the code.
+        - In-line comments
+            - Add in-line code comments when needed. However, try to only add it if you really need to. If you write good code, refactored code, you should need minimal in-line comments.
+    - Logging
+        - Logging is the process of recording messages to describe events that have occurred while running your software.
+        - Be professional and clear.
+            - Bad: Hmmm... this isn't working???
+            - Bad: idk.... :(
+            - Good: Couldn't parse file.
+        - Be concise and use normal capitalization.
+            - Bad: Start Product Recommendation Process
+            - Bad: We have completed the steps necessary and will now proceed with the recommendation process for the records in our product database.
+            - Good: Generating product recommendations.
+        - Choose the appropriate level for logging.
+            - DEBUG - level you would use for anything that happens in the program.
+            - ERROR - level to record any error that occurs
+            - INFO - level to record all actions that are user-driven or system specific, such as regularly scheduled operations
+        - Provide any useful information.
+            - Bad: Failed to read location data
+            - Good: Failed to read location data: store_id 8324971
+    - Code Style
+        - https://pep8.org/
+        - https://google.github.io/styleguide/pyguide.html
+- How to Get Started with Tests
+    - Problems that could occur in data science aren’t always easily detectable; you might have values being encoded incorrectly, features being used inappropriately, unexpected data breaking assumptions
+    - Try using test driven development.
+    - Write Unit Tests.
+        - Use pytest or unittest.
+- The Practical Guide to the Data Science Code Review
+    - Code Reviews
+        - Benefits
+            - Catch errors
+            - Ensure readability
+            - Check standards are met
+            - Share knowledge among teams
+        - Data Science Specific Benefits
+            - Data leakages
+            - Misinterpretation of features
+            - Inappropriate evaluation methods
+        - Questions to ask during a Code Review
+            - Is the code clean and modular?
+                - Can I understand the code easily?
+                - Does it use meaningful names and whitespace?
+                - Is there duplicated code?
+                - Can you provide another layer of abstraction?
+                - Is each function and module necessary?
+                - Is each function or module too long?
+            - Is the code efficient?
+                - Are there loops or other steps we can vectorize?
+                - Can we use better data structures to optimize any steps?
+                - Can we shorten the number of calculations needed for any steps?
+                - Can we use generators or multiprocessing to optimize any steps?
+            - Is documentation effective?
+                - Are in-line comments concise and meaningful?
+                - Is there complex code that's missing documentation?
+                - Do function use effective docstrings?
+                - Is the necessary project documentation provided?
+            - Is the code well tested?
+                - Does the code high test coverage?
+                - Do tests check for interesting cases?
+                - Are the tests readable?
+                - Can the tests be made more efficient?
+            - Is the logging effective?
+                - Are log messages clear, concise, and professional?
+                - Do they include all relevant and useful information?
+                - Do they use the appropriate logging level?
+        - Tips for Conducting a Code Review
+            - Use a code linter like pylint, flake8, etc.
+            - Explain issues and make suggestions.
+                - BAD: Make model evaluation code its own module - too repetitive.
+                - BETTER: Make the model evaluation code its own module. This will simplify models.py to be less repetitive and focus primarily on building models.
+                - GOOD: How about we consider making the model evaluation code its own module? This would simplify models.py to only include code for building models. Organizing these evaluations methods into separate functions would also allow us to reuse them with different models without repeating code.
+            - Keep your comments objective.
+                - BAD: I wouldn't groupby genre twice like you did here... Just compute it once and use that for your aggregations.
+                - BAD: You create this groupby dataframe twice here. Just compute it once, save it as groupby_genre and then use that to get your average prices and views.
+                - GOOD: Can we group by genre at the beginning of the function and then save that as a groupby object? We could then reference that object to get the average prices and views without computing groupby twice.
+            - Provide code examples.
+                - BAD: You can do this all in one step by using the pandas str.split method.
+                - GOOD: We can actually simplify this step to the line below using the pandas str.split method. Found this on this stack overflow post: https://stackoverflow.com/questions/14745022/how-to-split-a-column-into-two-columns
+                - df['first_name'], df['last_name'] = df['name'].str.split(' ', 1).str
+- What the Heck is CI/CD/CT?
+    - First, what is DevOps?
+        - https://www.youtube.com/watch?v=scEDHsr3APg
+        - A set of practices to __test__, __build__, and __deploy__ your code in small, frequent steps.
+        - **Two Main Benefits**
+            - Automates things that would have to be done manually by the developers.
+            - It also detects small problems early before they can grow into major distasters.
+                - And can check things like linting to ensure code quality.
+        - DevOps uses **CI to trigger an automated workflow** (on a CI server) that can notify the developers **if there are any issues when integrating** their changes to the repository.
+        - This is to prevent **merge hell**.
+        - You can use a tool like **GitHub Actions** or **Azure Pipelines** for CI/CD.
+        - You can create a CI/CD pipeline that **triggers a job** or workflow when you push code to the master branch so that the code is not merged to the master branch unless it passes the integration tests.
+            - You can trigger the job on pushes to the dev branch or other branches.
+        - The "job" is essential a machine that is deployed using docker where it grabs the code from the repo, installs the necessary packages, and then runs the tests or tries to deploy the code into production.
+            - If the job fails, you will need to update the code so that the integration tests can pass.
+    - CI
+    - CD
+    - CT
+    - Why Should I Care About CI/CD/CT as a Data Scientist?
+- Additional Resources
+    - Calm Code Videos:
+        - pytest: https://calmcode.io/pytest/introduction.html
+        - test: https://calmcode.io/test/introduction.html
+        - docs: https://calmcode.io/docs/introduction.html
+        - makefiles: https://calmcode.io/makefiles/the-problem.html
+        - deon: https://calmcode.io/deon/introduction.html
+        - black: https://calmcode.io/black/introduction.html
+        - flake8: https://calmcode.io/flake8/introduction.html
+        - readme files: https://calmcode.io/readme-files/dearme-readme.html
