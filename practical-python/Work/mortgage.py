@@ -23,5 +23,5 @@ while principal > 0:
 
     print(month, round(total_paid, 2), round(principal, 2))
 
-print(f"Total paid: {round(total_paid, 2)}")
+print(f"Total paid: {total_paid:0.2f}")
 print(f"Number of months: {month}")
