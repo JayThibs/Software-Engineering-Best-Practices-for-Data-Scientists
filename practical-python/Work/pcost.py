@@ -1,6 +1,5 @@
+import sys
 from pathlib import Path
-
-filepath = str(Path(".").resolve() / "practical-python/Work/Data/portfolio.csv")
 
 
 def portfolio_cost(filepath: str) -> int:
@@ -23,6 +22,11 @@ def portfolio_cost(filepath: str) -> int:
 
         return total_cost
 
+
+if len(sys.argv) == 2:
+    filepath = sys.argv[1]
+else:
+    filepath = str(Path(".").resolve() / "practical-python/Work/Data/portfolio.csv")
 
 cost = portfolio_cost(filepath)
 print(f"Total cost: {cost:0.2f}")
