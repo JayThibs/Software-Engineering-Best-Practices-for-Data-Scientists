@@ -29,11 +29,30 @@ def portfolio_cost(filename: str) -> float:
             total_cost += nshares * price
     return total_cost
         
+def read_prices(filename: str) -> dict:
+    """Reads a set of prices and puts them into a dictionary."""
+    prices = {}
+    with open(filename) as f:
+        rows = csv.reader(f)
+        try:
+            for row in rows:
+                prices[str(row[0])] = float(row[1])
+        except IndexError:
+            pass
+    return prices
 
+portfolio = read_portfolio('Data/portfolio.csv') # current personal portfolio
+prices    = read_prices('Data/prices.csv') # current prices in stock market
 
-if len(sys.argv) == 2:
-    filepath = sys.argv[1]
-else:
-    filepath = str(Path(".").resolve() / "Data/portfolio.csv")
+# Calculate total cost of the portfolio
+total_cost = 0.0
+for s in portfolio:
+    total_cost += s["shares"] * s["price"]
 
-read_portfolio(filepath)
+# Calculate the current value of the portfolio
+total_value = 0.0
+for s in portfolio:
+    total_value += s["shares"] * prices[s["name"]]
+
+print("Current value: ", total_value)
+print("Gain: ", total_value - total_cost)
