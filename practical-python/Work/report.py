@@ -54,5 +54,5 @@ total_value = 0.0
 for s in portfolio:
     total_value += s["shares"] * prices[s["name"]]
 
-print("Current value: ", total_value)
-print("Gain: ", total_value - total_cost)
+print("Current value:", total_value)
+print("Gain:", total_value - total_cost)
