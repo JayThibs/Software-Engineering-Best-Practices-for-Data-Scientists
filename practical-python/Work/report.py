@@ -1,6 +1,8 @@
+import os
 import csv
 import sys
 from pathlib import Path
+from pprint import pprint
 
 
 def read_portfolio(filename: str):
@@ -9,9 +11,9 @@ def read_portfolio(filename: str):
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
-            holding = (row[0], int(row[1]), float(row[2]))
+            holding = {"name": row[0], "shares": int(row[1]), "price": float(row[2])}
             portfolio.append(holding)
-    return print(portfolio)
+    return portfolio
 
 
 def portfolio_cost(filename: str) -> float:
@@ -32,6 +34,6 @@ def portfolio_cost(filename: str) -> float:
 if len(sys.argv) == 2:
     filepath = sys.argv[1]
 else:
-    filepath = str(Path(".").resolve() / "practical-python/Work/Data/portfolio.csv")
+    filepath = str(Path(".").resolve() / "Data/portfolio.csv")
 
 read_portfolio(filepath)
